@@ -25,7 +25,7 @@ const Product = props => {
     console.log('SUMMARY')
     console.log('============')
     console.log('name:', props.title)
-    console.log('price:', getPrice())
+    console.log('price:', getPrice)
     console.log('color:', currentColor)
     console.log('size:', currentSize)
   }
