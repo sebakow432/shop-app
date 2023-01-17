@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ProducImage from './ProductImage/ProductImage';
 import OptionSize from './ProductForm/OptionSize/OptionSize';
 import OptionColor from './ProductForm/OptionColor/OptionColor';
+import { useMemo } from 'react';
 
 const Product = props => {
   const [currentColor, setCurrentColor] = useState(props.colors[0]);
@@ -13,10 +14,10 @@ const Product = props => {
     return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
   }
 
-  const getPrice = () => {
+  const getPrice = useMemo(() => {
     const found = props.sizes.find(size => size.name === currentSize); 
     return(props.basePrice + found.additionalPrice)
-  }
+  }, [props.basePrice, props.sizes, currentSize])
 
   const addToCart = event => {
     event.preventDefault()
@@ -35,7 +36,7 @@ const Product = props => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          <span className={styles.price}>Price: {getPrice}$</span>
         </header>
         <form>
           <OptionSize sizes={props.sizes} currentSize={currentSize} setCurrentSize={setCurrentSize}/>
